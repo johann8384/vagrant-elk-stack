@@ -78,8 +78,12 @@ node 'elk-server01.ghostlab.net' {
     action  => 'accept',
   }
 
+  class { 'epel': }
   class { 'redis':
-    version => '2.8.6',
+    conf_port => '6379',
+    conf_bind => '0.0.0.0',
+    system_sysctl => true,
+    require => Class['epel'],
   }
 
   class { 'logstash':

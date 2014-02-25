@@ -1,44 +1,57 @@
-redis puppet module
-===================
+Redis Module for Puppet
+=======================
+[![Build Status](https://secure.travis-ci.org/fsalum/puppet-redis.png)](http://travis-ci.org/fsalum/puppet-redis)
 
-[![Build Status](https://secure.travis-ci.org/thomasvandoren/puppet-redis.png)](http://travis-ci.org/thomasvandoren/puppet-redis)
+This module installs and manages a Redis server. All redis.conf options are
+accepted in the parameterized class.
 
-Install and configure redis.
+Operating System
+----------------
 
-Usage
------
-Installs redis server and client with reasonable defaults (version 2.4.13 is included in the module).
+Tested on CentOS 6.3 and Debian Squeeze.
 
-```puppet
-include redis
-```
+Quick Start
+-----------
 
-Installs redis server and client with version 2.6.5.
+Use the default parameters:
 
-```puppet
-class { 'redis':
-  version => '2.6.5',
-}
-```
+    class { 'redis': }
 
-Installs version 2.4.17, listens on port 6900, binds to address
-10.1.2.3 (instead of all available interfaces), sets max memory to 1
-gigabyte, and sets a password from hiera.
+To change the port and listening network interface:
 
-```puppet
-class { 'redis':
-  version            => '2.4.17',
-  redis_port         => '6900',
-  redis_bind_address => '10.1.2.3',
-  redis_password     => hiera('redis_password'),
-  redis_max_memory   => '1gb',
-}
-```
+    class { 'redis':
+      conf_port => '6379',
+      conf_bind => '0.0.0.0',
+    }
 
-Authors
--------
-Thomas Van Doren
+Parameters
+----------
 
-License
--------
-BSD
+Check the [init.pp](https://github.com/fsalum/puppet-redis/blob/master/manifests/init.pp) file for a complete list of parameters accepted.
+
+To enable and set important Linux kernel sysctl parameters as described in the [Redis Admin Guide](http://redis.io/topics/admin) - use the following configuration option:
+
+    class { 'redis':
+      system_sysctl => true
+    }
+
+By default, this sysctl parameter will not be enabled. Furthermore, you will need the sysctl module defined in the [Modulefile](https://github.com/fsalum/puppet-redis/blob/master/Modulefile) file.
+
+Copyright and License
+---------------------
+
+Copyright (C) 2012 Felipe Salum
+
+Felipe Salum can be contacted at: fsalum@gmail.com
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.

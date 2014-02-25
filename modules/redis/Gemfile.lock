@@ -1,0 +1,16 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    facter (1.7.5)
+    puppet (2.7.25)
+      facter (~> 1.5)
+    puppet-lint (0.3.2)
+    rake (10.1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  puppet (= 2.7.25)
+  puppet-lint
+  rake
