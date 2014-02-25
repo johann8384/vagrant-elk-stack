@@ -1,0 +1,25 @@
+input {
+  redis {
+    host => "127.0.0.1"
+    # these settings should match the output of the agent
+    data_type => "list"
+    key => "logstash"
+
+    # We use the 'json' codec here because we expect to read
+    # json events from redis.
+    codec => json
+  }
+  tcp {
+    port => 514
+    type => syslog
+  }
+  udp {
+    port => 514
+    type => syslog
+  }
+  file {
+    path => '/var/log/*'
+    type => 'syslog'
+    sincedb_path => '/opt/blacklight/monitoring'
+  }
+}
